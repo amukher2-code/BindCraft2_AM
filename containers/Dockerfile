@@ -21,7 +21,8 @@ ENV PIP_BREAK_SYSTEM_PACKAGES=1 PIP_NO_CACHE_DIR=1 PYTHONUNBUFFERED=1
 # than inside the package, and the runtime finds them relative to it, so the source tree has to stay
 # in place and on the import path -- a plain install would copy only the package and orphan them.
 COPY . /opt/bindcraft
-RUN python3 -m pip install -e "/opt/bindcraft[cuda13]"
+#RUN python3 -m pip install -e "/opt/bindcraft[cuda13]"
+RUN python3 -m pip install -e "/opt/bindcraft[cuda12]"
 
 # Two things have to line up for a campaign in here to reach the cards, and jax says neither out
 # loud: it warns once and runs on the CPU, a hundred times slower. The cuda13 wheels keep their
@@ -43,7 +44,8 @@ RUN if [ "$ALPHAFOLD_PARAMETERS" = bake ]; then \
 WORKDIR /
 RUN python3 -c "import jax, bindcraft.proteinmpnn; print('jax', jax.__version__)" \
  && bindcraft --help > /dev/null \
- && python3 -m bindcraft.selfcheck cuda13 --shipped-only
+ #&& python3 -m bindcraft.selfcheck cuda13 --shipped-only
+ && python3 -m bindcraft.selfcheck cuda12 --shipped-only
 
 WORKDIR /work
 ENTRYPOINT ["bindcraft"]
