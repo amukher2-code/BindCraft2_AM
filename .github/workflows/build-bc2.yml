@@ -21,4 +21,5 @@ jobs:
           platforms: linux/amd64
           provenance: false          # keep the manifest simple for old Singularity
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/bindcraft:1.0
+          #tags: ghcr.io/${{ github.repository_owner }}/bindcraft:1.0
+          tags: ghcr.io/${{ github.repository_owner }}/bindcraft:cuda12
